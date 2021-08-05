@@ -1,0 +1,190 @@
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Path to your oh-my-zsh installation.
+export ZSH="/Users/chipcarnes/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="miloshadzic"
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git colored-man-pages common-aliases)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Python Virtual Environments
+# export WORKON_HOME=~/.virtualenvs
+# source /usr/local/bin/virtualenvwrapper.sh
+
+# Aliases
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+# alias la='la -a'
+alias dc='docker-compose'
+alias dm='docker-machine'
+
+alias dpyc='find . -name \*.pyc -delete'
+alias gpo='git pull origin $(git rev-parse --abbrev-ref HEAD)'
+alias chk='git checkout'
+alias push='git push origin'
+alias glog='git log $(git rev-parse --abbrev-ref HEAD)'
+alias sutm='git branch --set-upstream-to master'
+alias suto='git branch --set-upstream-to origin'
+
+export PGDATA=/usr/local/var/postgres
+export PGHOST=/tmp
+
+########### Eventbrite Stuff #####################
+export ARCANIST_INSTALL_DIR=/Users/chipcarnes/.evbdevtools
+source $ARCANIST_INSTALL_DIR/devtools/scripts/devenv_bash/arcanist_helpers.sh
+
+export GITHUB_TOKEN=6242abf3d6a25123dc99e55f38db3da2eb5b9c76
+export HOMEBREW_GITHUB_API_TOKEN=$GITHUB_TOKEN
+
+export BAY_HOME=/Users/chipcarnes/eventbrite/docker-dev
+########### END Eventbrite Stuff ##################
+
+export PATH=/usr/local/sbin:$PATH
+
+############### EB PYENV STUFF #######################
+# These aliases and variables may need to be adjusted now or in the future for newer versions
+export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$HOME/.pyenv/versions/2.7.17/lib/pkgconfig"
+export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:$HOME/.pyenv/versions/3.7.7/lib/pkgconfig"
+alias mkvirtualenv2='mkvirtualenv "--python=$HOME/.pyenv/versions/2.7.17/bin/python"'
+alias mkvirtualenv37='mkvirtualenv "--python=$HOME/.pyenv/versions/3.7.7/bin/python"'
+export WORKON_HOME="$HOME/.virtualenvs"
+export VIRTUALENVWRAPPER_PYTHON="$HOME/.pyenv/versions/3.7.7/bin/python"
+source "$HOME/.pyenv/versions/3.7.7/bin/virtualenvwrapper.sh"
+if ! grep -q PIP_INDEX_URL "$VIRTUALENVWRAPPER_HOOK_DIR/postactivate"
+then
+    echo "Adding custom Eventbrite Devpi activation to virtualenv postactivate script"
+    echo 'export PIP_INDEX_URL="https://devpi.evbhome.com/eventbrite/stable/+simple/"' >> "$VIRTUALENVWRAPPER_HOOK_DIR/postactivate"
+fi
+if ! grep -q PIP_INDEX_URL "$VIRTUALENVWRAPPER_HOOK_DIR/predeactivate"
+then
+    echo "Adding custom Eventbrite Devpi deactivation to virtualenv predeactivate script"
+    echo 'unset PIP_INDEX_URL' >> "$VIRTUALENVWRAPPER_HOOK_DIR/predeactivate"
+fi
+############## END EB PYENV STUFF #####################
+
+
+export PYTHON_CONFIGURE_OPTS="--enable-shared"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
+alias yak__nuke='kubectl delete services --all && kubectl scale --replicas=0 deployments,statefulsets --all && kubectl delete pvc --all'
+
+################### NVM STUFF #########################
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+################### END NVM STUFF #####################
+
+################### GO STUFF ##########################
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+################## END GO STUFF #######################
+
+################## LOCAL UNIT TEST STUFF ##############
+get_code_artifact_token() {
+	token=$(vault-authenticator eks --vault-url https://active.uservault.service.evb:8200 --vault-path aws-devtools/creds/yak-user --cluster-id devenv-uno --prompt-prefix Okta)
+	export AWS_DEFAULT_REGION=us-east-1
+	export AWS_ACCESS_KEY_ID=$(grep access_key ~/.vault-authenticator/.aws-devtools\#creds\#yak-user | cut -f 2 -d ":" | cut -f 2 -d " ")
+	export AWS_SECRET_ACCESS_KEY=$(grep secret_key ~/.vault-authenticator/.aws-devtools\#creds\#yak-user | cut -f 2 -d ":" | cut -f 2 -d " ")
+	export AWS_SESSION_TOKEN=$(grep security_token ~/.vault-authenticator/.aws-devtools\#creds\#yak-user | cut -f 2 -d ":" | cut -f 2 -d " ")
+	export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain eventbrite-shared --domain-owner 353605023268 --query authorizationToken --output text)
+	echo "export CODEARTIFACT_AUTH_TOKEN=${CODEARTIFACT_AUTH_TOKEN}" > /tmp/.codeartifact
+	echo "Token written to /tmp/.codeartifact"
+}
+
+run_unit_local() {
+	DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker build --progress=plain --secret id=codeartifact,src=/tmp/.codeartifact .
+	DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose --env-file=.env build
+	docker-compose --env-file=.env run tox 
+}
+################ END LOCAL UNIT TEST STUFF ###########
