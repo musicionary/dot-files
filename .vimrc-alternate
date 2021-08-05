@@ -1,0 +1,38 @@
+" BASIC
+set nocompatible " No vi compatility, this first because it resets some options
+let mapleader="," " Mapleader
+filetype off
+set encoding=utf-8
+set history=1000  " Keep more history, default is 20
+set mouse=v " Allow copy-pasting
+
+set statusline=
+set statusline+=%f:%l:%c\ %m
+set statusline+=%{tagbar#currenttag('\ [%s]\ ','','')}
+set statusline+=%=
+set statusline+=%{FugitiveStatusline()}
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'crusoexia/vim-monokai'
+
+call plug#end()
+
+set t_Co=256  " 2000s plz
+set textwidth=80  " Switch line at 80 characters
+set scrolloff=5   " Keep some distance to the bottom"
+set showmatch     " Show matching of: () [] {}
+set ignorecase    " Required for smartcase to work
+set smartcase     " Case sensitive when uppercase is present
+set incsearch     " Search as you type
+set smartindent   " Be smart about indentation
+set expandtab     " Tabs are spaces
+set smarttab
+set tabstop=2 " Tabs are 2 spaces
+set backspace=2 " Backspace deletes 2 spaces
+set shiftwidth=2 " Even if there are tabs, preview as 2 spaces
+
+
+
+syntax enable
+colorscheme monokai
